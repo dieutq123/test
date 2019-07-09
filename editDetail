@@ -1,0 +1,89 @@
+@extends('admin.layout.master')
+@section('htmlheader_title')
+    Edit
+@endsection
+
+
+@section('content')
+<div class="content-wrapper">
+    <div class="form-group col-md-2" style="float:right; margin : 7px 0px;">
+        <button type="reset" class="btn btn-info" onClick="window.location.reload()">Reset</button>
+        <button type="button" class="btn btn-danger show-delete-user-modal" data-user_id="{{$user->id}}">削除</button>
+        <button type="submit" class="btn btn-primary" id="btn_update_user" data-url="{{route('admin.post.normal.edit')}}" data-user_id="{{$user->id}}">更新</button>
+    </div>
+    <div class="form-group col-md-12">
+        <!-- Left -->
+        <div class="col-md-6 ct_left">
+            <div class="input-group ct_ip_gr">
+                <span class="input-group-addon">ユーザーID</span>
+                <input type="text" class="form-control" value="{{$user->id}}" readonly>
+            </div>
+
+            <div class="input-group ct_ip_gr">
+                <span class="input-group-addon">ユーザー名</span>
+                <input type="text" class="form-control user_name" value="{{$user->user_name}}" required>
+            </div>
+
+            <div class="input-group ct_ip_gr">
+                <span class="input-group-addon">性別</span>
+                <input type="text" class="form-control user_sex" @if($user->sex == 1) value="男性" @else value="女性" @endif readonly>
+            </div>
+
+            <div class="input-group ct_ip_gr">
+                <span class="input-group-addon">生年月日</span>
+                <input type="text" class="form-control birthday" value="{{$user->birthday}}" required>
+            </div>
+
+            <div class="input-group ct_ip_gr">
+                <span class="input-group-addon">ポイント</span>
+                <input type="text" class="form-control" id="user_point" value="{{$user->point}}">
+            </div>
+
+        </div>
+
+        <!-- Right -->
+        <div class="col-md-6 ct_right">
+            <div class="input-group ct_ip_gr">
+                <span class="input-group-addon">アバター</span>
+                <input type="url" class="form-control user_avatar" value="">
+            </div>
+
+            <div class="input-group ct_ip_gr">
+                <span class="input-group-addon">メールアドレス</span>
+                <input type="text" class="form-control phone user_phone" value="{{$user->email}}">
+            </div>
+
+            <div class="input-group ct_ip_gr">
+                <span class="input-group-addon">電話番号</span>
+                <input type="text" class="form-control user_tel" value="{{$user->tel}}">
+            </div>
+
+            <div class="input-group ct_ip_gr address">
+                <span class="input-group-addon">PRメッセージ</span>
+                <input type="text" class="form-control user_pr">
+            </div>
+
+        </div>
+        <!-- Finish right -->
+    </div>
+</div>
+ <!-- modal delete -->
+ <div class="modal fade" id="delete_user_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    このユーザーを削除しますが、よろしいでしょうか？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">キャンセル</button>
+                    <button id="dlg_button_delete" type="button" class="btn btn-danger" data-modal-action="yes" data-url="{{route('admin.normal.delete')}}">削除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal delete -->
+@endsection
+@section('custom_js')
+<script type="text/javascript" src="{{ url('js/vendor/users.js') }}"></script>
+@endsection
+
